@@ -28,3 +28,5 @@ NEXT_PUBLIC_SITE_URL=https://your-vercel-domain.vercel.app
 NEXT_PUBLIC_GITHUB_RELEASE_URL=https://github.com/rikiharada/MitruWeb/releases/tag/v0.9.7-beta
 NEXT_PUBLIC_GITHUB_RELEASES_URL=https://github.com/rikiharada/MitruWeb/releases
 ```
+
+## デプロイテスト
