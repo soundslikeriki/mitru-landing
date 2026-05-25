@@ -30,3 +30,5 @@ NEXT_PUBLIC_GITHUB_RELEASES_URL=https://github.com/rikiharada/MitruWeb/releases
 ```
 
 ## デプロイテスト
+
+## デプロイ再トリガー
