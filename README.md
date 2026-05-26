@@ -25,10 +25,8 @@ Recommended environment variables:
 
 ```text
 NEXT_PUBLIC_SITE_URL=https://your-vercel-domain.vercel.app
-NEXT_PUBLIC_GITHUB_RELEASE_URL=https://github.com/rikiharada/MitruWeb/releases/tag/v0.9.7-beta
-NEXT_PUBLIC_GITHUB_RELEASES_URL=https://github.com/rikiharada/MitruWeb/releases
+NEXT_PUBLIC_GITHUB_RELEASE_URL=https://github.com/soundslikeriki/Mitru/releases/latest
+NEXT_PUBLIC_GITHUB_RELEASES_URL=https://github.com/soundslikeriki/Mitru/releases
 ```
 
-## デプロイテスト
-
-## デプロイ再トリガー
+## 最終デプロイトリガー
