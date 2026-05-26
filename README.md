@@ -25,8 +25,8 @@ Recommended environment variables:
 
 ```text
 NEXT_PUBLIC_SITE_URL=https://your-vercel-domain.vercel.app
-NEXT_PUBLIC_GITHUB_RELEASE_URL=https://github.com/soundslikeriki/Mitru/releases/latest
+NEXT_PUBLIC_MAC_DOWNLOAD_URL=https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7-beta_aarch64.dmg
+NEXT_PUBLIC_WINDOWS_EXE_DOWNLOAD_URL=https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7-beta_x64-setup.exe
+NEXT_PUBLIC_WINDOWS_MSI_DOWNLOAD_URL=https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7_x64_ja-JP.msi
 NEXT_PUBLIC_GITHUB_RELEASES_URL=https://github.com/soundslikeriki/Mitru/releases
 ```
-
-## 最終デプロイトリガー

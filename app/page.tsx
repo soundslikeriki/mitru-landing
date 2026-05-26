@@ -2,12 +2,18 @@ import Image from "next/image";
 import ScreenshotGallery from "./components/ScreenshotGallery";
 
 const releaseVersion = "v0.9.7-beta";
-const githubReleaseUrl =
-  process.env.NEXT_PUBLIC_GITHUB_RELEASE_URL ??
-  "https://github.com/rikiharada/MitruWeb/releases/tag/v0.9.7-beta";
+const macDownloadUrl =
+  process.env.NEXT_PUBLIC_MAC_DOWNLOAD_URL ??
+  "https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7-beta_aarch64.dmg";
+const windowsExeDownloadUrl =
+  process.env.NEXT_PUBLIC_WINDOWS_EXE_DOWNLOAD_URL ??
+  "https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7-beta_x64-setup.exe";
+const windowsMsiDownloadUrl =
+  process.env.NEXT_PUBLIC_WINDOWS_MSI_DOWNLOAD_URL ??
+  "https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7_x64_ja-JP.msi";
 const githubReleasesUrl =
   process.env.NEXT_PUBLIC_GITHUB_RELEASES_URL ??
-  "https://github.com/rikiharada/MitruWeb/releases";
+  "https://github.com/soundslikeriki/Mitru/releases";
 
 const navItems = [
   { label: "Mitruとは", href: "#about" },
@@ -39,10 +45,10 @@ const features = [
 ];
 
 const notices = [
-  "限定ベータ版のため、予期しない不具合が発生する可能性があります。",
-  "重要なデータを扱う前に、必ずバックアップを取ってください。",
-  "クラウド同期を使う場合は、ご自身のSupabaseプロジェクト情報を安全に管理してください。",
-  "配布リンクやインストーラーを第三者へ再配布しないでください。"
+  "限定ベータ版のため、正式版に向けて改善中の機能があります。",
+  "大切な案件データを扱う前に、念のためバックアップを取っておくと安心です。",
+  "クラウド同期を使う場合は、ご自身のSupabaseプロジェクト情報を大切に管理してください。",
+  "限定配布のため、ダウンロードリンクやインストーラーの取り扱いにはご配慮ください。"
 ];
 
 const cloudSyncDetails = [
@@ -324,44 +330,79 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <div className="mt-8 grid items-stretch gap-4 md:grid-cols-3">
           <a
-            href={githubReleaseUrl}
+            href={macDownloadUrl}
             target="_blank"
             rel="noreferrer"
-            className="rounded-lg border border-cyan-200/20 bg-cyan-300/10 p-6 transition hover:border-cyan-200/45 hover:bg-cyan-300/15"
+            className="flex h-full min-h-[340px] flex-col rounded-lg border border-cyan-200/20 bg-cyan-300/10 p-6 transition hover:border-cyan-200/45 hover:bg-cyan-300/15"
           >
-            <span className="text-sm font-semibold uppercase tracking-widest text-cyan-200">
-              macOS
+            <span className="flex flex-nowrap items-center gap-2">
+              <span className="inline-flex whitespace-nowrap rounded-full border border-cyan-200/25 bg-cyan-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-cyan-100">
+                macOS .dmg
+              </span>
+              <span className="inline-flex whitespace-nowrap rounded-full border border-white/10 px-2.5 py-1 text-xs font-semibold text-slate-200">
+                Apple Silicon向け
+              </span>
             </span>
             <span className="mt-3 block text-2xl font-semibold">
-              macOS版をGitHub Releasesで入手
+              macOS版
             </span>
-            <span className="mt-4 block leading-7 text-slate-300">
-              Apple Silicon / Intel Mac向け。Releaseページ内のmacOS用アセットを選択してください。
+            <span className="mt-4 block flex-1 leading-7 text-slate-300">
+              Apple Silicon向けのdmgファイルを直接開きます。Intel Macをご利用の場合は、Releasesページで対応ファイルをご確認ください。
             </span>
-            <span className="mt-5 inline-flex rounded-md bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950">
-              {releaseVersion} を開く
+            <span className="mt-6 inline-flex w-fit rounded-md bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950">
+              macOS版をダウンロード (.dmg)
             </span>
           </a>
 
           <a
-            href={githubReleaseUrl}
+            href={windowsExeDownloadUrl}
             target="_blank"
             rel="noreferrer"
-            className="rounded-lg border border-white/10 bg-white/[0.04] p-6 transition hover:border-cyan-200/30 hover:bg-white/[0.07]"
+            className="flex h-full min-h-[340px] flex-col rounded-lg border border-white/10 bg-white/[0.04] p-6 transition hover:border-cyan-200/30 hover:bg-white/[0.07]"
           >
-            <span className="text-sm font-semibold uppercase tracking-widest text-slate-400">
-              Windows
+            <span className="flex flex-nowrap items-center gap-2">
+              <span className="inline-flex whitespace-nowrap rounded-full border border-cyan-200/25 bg-cyan-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-cyan-100">
+                Windows .exe
+              </span>
+              <span className="inline-flex whitespace-nowrap rounded-full border border-emerald-300/25 bg-emerald-300/10 px-2.5 py-1 text-xs font-semibold text-emerald-100">
+                推奨インストーラー
+              </span>
             </span>
             <span className="mt-3 block text-2xl font-semibold">
-              Windows版をGitHub Releasesで入手
+              Windows版
             </span>
-            <span className="mt-4 block leading-7 text-slate-300">
-              Windows 10 / 11向け。Releaseページ内のWindows用インストーラーを選択してください。
+            <span className="mt-4 block flex-1 leading-7 text-slate-300">
+              Windows 10 / 11で通常はこちらを選んでください。セットアップウィザードでスムーズに導入できます。
             </span>
-            <span className="mt-5 inline-flex rounded-md border border-white/15 px-4 py-2 text-sm font-semibold text-white">
-              {releaseVersion} を開く
+            <span className="mt-6 inline-flex w-fit rounded-md border border-white/15 px-4 py-2 text-sm font-semibold text-white">
+              Windows版をダウンロード (.exe) ※推奨
+            </span>
+          </a>
+
+          <a
+            href={windowsMsiDownloadUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex h-full min-h-[340px] flex-col rounded-lg border border-white/10 bg-white/[0.04] p-6 transition hover:border-cyan-200/30 hover:bg-white/[0.07]"
+          >
+            <span className="flex flex-nowrap items-center gap-2">
+              <span className="inline-flex whitespace-nowrap rounded-full border border-cyan-200/25 bg-cyan-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-cyan-100">
+                Windows .msi
+              </span>
+              <span className="inline-flex whitespace-nowrap rounded-full border border-white/10 px-2.5 py-1 text-xs font-semibold text-slate-200">
+                企業・社内配布向け
+              </span>
+            </span>
+            <span className="mt-3 block text-2xl font-semibold">
+              MSI版
+            </span>
+            <span className="mt-4 block flex-1 leading-7 text-slate-300">
+              管理者による展開や社内配布に向いたmsiパッケージです。通常利用では.exe版がおすすめです。
+            </span>
+            <span className="mt-6 inline-flex w-fit rounded-md border border-white/15 px-4 py-2 text-sm font-semibold text-white">
+              Windows版をダウンロード (.msi)
             </span>
           </a>
         </div>
