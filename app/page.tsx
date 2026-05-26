@@ -333,7 +333,6 @@ export default function Home() {
         <div className="mt-8 grid items-stretch gap-4 md:grid-cols-3">
           <a
             href={macDownloadUrl}
-            target="_blank"
             rel="noreferrer"
             className="flex h-full min-h-[340px] flex-col rounded-lg border border-cyan-200/20 bg-cyan-300/10 p-6 transition hover:border-cyan-200/45 hover:bg-cyan-300/15"
           >
@@ -358,7 +357,6 @@ export default function Home() {
 
           <a
             href={windowsExeDownloadUrl}
-            target="_blank"
             rel="noreferrer"
             className="flex h-full min-h-[340px] flex-col rounded-lg border border-white/10 bg-white/[0.04] p-6 transition hover:border-cyan-200/30 hover:bg-white/[0.07]"
           >
@@ -377,13 +375,12 @@ export default function Home() {
               Windows 10 / 11で通常はこちらを選んでください。セットアップウィザードでスムーズに導入できます。
             </span>
             <span className="mt-6 inline-flex w-fit rounded-md border border-white/15 px-4 py-2 text-sm font-semibold text-white">
-              Windows版をダウンロード (.exe) ※推奨
+              Windows版をダウンロード (.exe) ※推奨インストーラー
             </span>
           </a>
 
           <a
             href={windowsMsiDownloadUrl}
-            target="_blank"
             rel="noreferrer"
             className="flex h-full min-h-[340px] flex-col rounded-lg border border-white/10 bg-white/[0.04] p-6 transition hover:border-cyan-200/30 hover:bg-white/[0.07]"
           >
