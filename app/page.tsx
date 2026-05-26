@@ -8,9 +8,6 @@ const macDownloadUrl =
 const windowsExeDownloadUrl =
   process.env.NEXT_PUBLIC_WINDOWS_EXE_DOWNLOAD_URL ??
   "https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7-beta_x64-setup.exe";
-const windowsMsiDownloadUrl =
-  process.env.NEXT_PUBLIC_WINDOWS_MSI_DOWNLOAD_URL ??
-  "https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7_x64_ja-JP.msi";
 const githubReleasesUrl =
   process.env.NEXT_PUBLIC_GITHUB_RELEASES_URL ??
   "https://github.com/soundslikeriki/Mitru/releases";
@@ -330,7 +327,7 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="mt-8 grid items-stretch gap-4 md:grid-cols-3">
+        <div className="mt-8 grid items-stretch gap-4 md:grid-cols-2">
           <a
             href={macDownloadUrl}
             download="Mitru_0.9.7-beta_aarch64.dmg"
@@ -349,7 +346,7 @@ export default function Home() {
               macOS版
             </span>
             <span className="mt-4 block flex-1 leading-7 text-slate-300">
-              Apple Silicon向けのdmgファイルを直接開きます。Intel Macをご利用の場合は、Releasesページで対応ファイルをご確認ください。
+              最新のmacOS版インストーラーです。ダウンロード後、dmgファイルを開いてアプリをApplicationsへ移動してください。
             </span>
             <span className="mt-6 inline-flex w-fit rounded-md bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950">
               macOS版をダウンロード (.dmg)
@@ -374,35 +371,10 @@ export default function Home() {
               Windows版
             </span>
             <span className="mt-4 block flex-1 leading-7 text-slate-300">
-              Windows 10 / 11で通常はこちらを選んでください。セットアップウィザードでスムーズに導入できます。
+              最新のWindows版インストーラーです。Windows 10 / 11でセットアップ画面に沿って導入できます。
             </span>
             <span className="mt-6 inline-flex w-fit rounded-md border border-white/15 px-4 py-2 text-sm font-semibold text-white">
               Windows版をダウンロード (.exe)
-            </span>
-          </a>
-
-          <a
-            href={windowsMsiDownloadUrl}
-            download="Mitru_0.9.7_x64_ja-JP.msi"
-            rel="noreferrer"
-            className="flex h-full min-h-[340px] flex-col rounded-lg border border-white/10 bg-white/[0.04] p-6 transition hover:border-cyan-200/30 hover:bg-white/[0.07]"
-          >
-            <span className="flex flex-nowrap items-center gap-2">
-              <span className="inline-flex whitespace-nowrap rounded-full border border-cyan-200/25 bg-cyan-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-cyan-100">
-                Windows .msi
-              </span>
-              <span className="inline-flex whitespace-nowrap rounded-full border border-white/10 px-2.5 py-1 text-xs font-semibold text-slate-200">
-                企業・社内配布向け
-              </span>
-            </span>
-            <span className="mt-3 block text-2xl font-semibold">
-              MSI版
-            </span>
-            <span className="mt-4 block flex-1 leading-7 text-slate-300">
-              管理者による展開や社内配布に向いたmsiパッケージです。通常利用では.exe版がおすすめです。
-            </span>
-            <span className="mt-6 inline-flex w-fit rounded-md border border-white/15 px-4 py-2 text-sm font-semibold text-white">
-              Windows版をダウンロード (.msi)
             </span>
           </a>
         </div>

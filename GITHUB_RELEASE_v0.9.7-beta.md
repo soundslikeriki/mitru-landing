@@ -8,7 +8,6 @@ Mitru v0.9.7-beta の限定ベータ版です。
 
 - macOS: [Mitru_0.9.7-beta_aarch64.dmg](https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7-beta_aarch64.dmg)
 - Windows .exe: [Mitru_0.9.7-beta_x64-setup.exe](https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7-beta_x64-setup.exe)
-- Windows .msi: [Mitru_0.9.7_x64_ja-JP.msi](https://github.com/soundslikeriki/Mitru/releases/download/v0.9.7-beta/Mitru_0.9.7_x64_ja-JP.msi)
 
 ## 主な内容
 
