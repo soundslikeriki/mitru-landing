@@ -9,8 +9,9 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Mitru Limited Beta | 公式特設サイト",
-  description: "Mitruの限定ベータ参加者向け公式ダウンロードページです。",
+  title: "Mitru Limited Beta | 建設業務向けデスクトップアプリ",
+  description:
+    "Mitruの限定ベータ参加者向け公式サイト。建設業の見積、積算、請求、入金管理を効率化するデスクトップアプリです。",
   alternates: {
     canonical: "/"
   },
@@ -20,7 +21,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Mitru Limited Beta",
-    description: "Mitruの限定ベータ参加者向け公式ダウンロードページです。",
+    description:
+      "建設業の見積、積算、請求、入金管理を効率化するMitru限定ベータ版の公式サイトです。",
     type: "website",
     url: "/",
     images: ["/logo.png"]
@@ -28,7 +30,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mitru Limited Beta",
-    description: "Mitruの限定ベータ参加者向け公式ダウンロードページです。",
+    description:
+      "建設業の見積、積算、請求、入金管理を効率化するMitru限定ベータ版の公式サイトです。",
     images: ["/logo.png"]
   }
 };
@@ -39,8 +42,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body className="antialiased">{children}</body>
+    <html lang="ja" suppressHydrationWarning>
+      <body>{children}</body>
     </html>
   );
 }
