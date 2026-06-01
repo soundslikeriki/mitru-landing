@@ -126,28 +126,95 @@ const screenshots = [
   }
 ];
 
-const notices = [
-  "限定ベータ版のため、正式版に向けて改善中の機能があります。",
-  "大切な案件データを扱う前に、念のためバックアップを取っておくと安心です。",
-  "クラウド同期を利用する場合は、ご自身のSupabaseプロジェクト情報を大切に管理してください。",
-  "限定配布のため、インストーラーやダウンロードリンクの取り扱いにはご配慮ください。"
+const downloadOptions = [
+  {
+    platform: "macOS版",
+    format: "macOS .dmg",
+    href: macDownloadUrl,
+    fileName: "Mitru_0.9.7-beta_aarch64.dmg",
+    button: "macOS版をダウンロード (.dmg)",
+    description:
+      "Apple Silicon搭載Mac向けの限定ベータ版です。dmgを開き、MitruをApplicationsフォルダへ移動して利用します。",
+    icon: HardDriveDownload,
+    highlight: true
+  },
+  {
+    platform: "Windows版",
+    format: "Windows .exe",
+    href: windowsDownloadUrl,
+    fileName: "Mitru_0.9.7-beta_x64-setup.exe",
+    button: "Windows版をダウンロード (.exe)",
+    description:
+      "Windows 10 / 11向けの限定ベータ版です。exeインストーラーを実行し、画面の案内に沿ってセットアップします。",
+    icon: Laptop,
+    highlight: false
+  }
 ];
 
-const setupSteps = [
+const installGuides = [
   {
-    title: "GitHub Releasesを開く",
-    body: `${releaseVersion} のReleaseページから、macOS版インストーラーを選択します。`,
-    icon: HardDriveDownload
+    platform: "macOS",
+    icon: HardDriveDownload,
+    steps: [
+      "macOS版の .dmg ファイルをダウンロードします。",
+      "ダウンロードした .dmg を開き、Mitru.app をApplicationsフォルダへ移動します。",
+      "ApplicationsからMitruを起動します。初回起動時に確認が出る場合は、注意事項のGatekeeper手順を確認してください。"
+    ]
   },
   {
-    title: "インストール",
-    body: "dmgファイルを開き、MitruをApplicationsフォルダへ移動します。",
-    icon: Laptop
+    platform: "Windows",
+    icon: Laptop,
+    steps: [
+      "Windows版の .exe インストーラーをダウンロードします。",
+      "インストーラーを実行し、表示されるセットアップ画面に沿ってインストールします。",
+      "SmartScreenの確認が表示された場合は、注意事項の手順を確認し、配布元を確認したうえで実行してください。"
+    ]
+  }
+];
+
+const noticeCards = [
+  {
+    title: "macOSのGatekeeper警告について",
+    icon: LockKeyhole,
+    tone: "amber",
+    body: "限定ベータ版では、初回起動時にmacOSの保護機能により確認が表示される場合があります。必ずMitru公式のGitHub Releasesから取得したファイルであることを確認してください。",
+    command: "xattr -dr com.apple.quarantine /Applications/Mitru.app",
+    note: "このコマンドは、信頼できる配布元から入手したMitru.appに対してのみ実行してください。"
   },
   {
-    title: "起動して確認",
-    body: "初回起動時の確認が表示された場合は、ベータ案内に沿って許可してください。",
-    icon: CheckCircle2
+    title: "WindowsのSmartScreen警告について",
+    icon: ShieldCheck,
+    tone: "blue",
+    body: "Windows版では、署名や配布実績の都合によりSmartScreenの確認が表示される場合があります。",
+    steps: [
+      "表示内容を確認し、発行元とダウンロード元がMitru公式Releaseであることを確認します。",
+      "「詳細情報」を選択します。",
+      "内容に問題がなければ「実行」を選択してインストールを続行します。"
+    ]
+  },
+  {
+    title: "限定ベータ版としてのお願い",
+    icon: AlertTriangle,
+    tone: "red",
+    body: "v0.9.7-betaは正式リリース前の限定ベータ版です。実験的な機能や今後変更される仕様が含まれます。",
+    steps: [
+      "重要な案件データを扱う前に、バックアップを取っておくことをおすすめします。",
+      "本番業務で利用する場合は、社内の運用ルールに合わせて慎重に確認してください。",
+      "気づいた点や改善要望は、今後の安定版に向けた品質向上に活用します。"
+    ]
+  }
+];
+
+const extraNotes = [
+  {
+    title: "PDF保存について",
+    body: "見積書・請求書のPDF保存は、印刷用HTMLを開いてブラウザやOSの印刷機能からPDFとして保存する方式です。",
+    icon: FileText
+  },
+  {
+    title: "クラウド同期について",
+    body: "Supabaseクラウド同期は任意で利用できる実験的機能です。利用しなくても、ローカル環境だけでMitruを使えます。",
+    icon: Cloud
   }
 ];
 
@@ -419,20 +486,90 @@ export default function Home() {
 
         <section
           id="notice"
-          className="scroll-mt-24 border-b border-red-400/20 bg-red-950/25"
+          className="scroll-mt-24 border-y border-amber-300/15 bg-amber-950/10"
         >
           <div className="section-shell py-16">
             <SectionLabel icon={AlertTriangle}>Important</SectionLabel>
-            <h2 className="text-3xl font-semibold">注意事項</h2>
-            <div className="mt-6 grid gap-3">
-              {notices.map((notice) => (
-                <p
-                  key={notice}
-                  className="flex gap-3 rounded-md border border-red-300/20 bg-red-500/10 px-4 py-3 leading-7 text-red-50"
-                >
-                  <AlertTriangle className="mt-1 h-5 w-5 shrink-0 text-red-200" />
-                  {notice}
+            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+              <div>
+                <h2 className="text-3xl font-semibold">注意事項</h2>
+                <p className="mt-4 max-w-3xl leading-7 text-slate-300">
+                  Mitruは限定ベータ版として配布しています。安心して試していただけるよう、OSの警告表示や実験的機能について事前にご確認ください。
                 </p>
+              </div>
+              <span className="w-fit rounded-full border border-amber-200/25 bg-amber-200/10 px-3 py-1 text-sm font-semibold text-amber-100">
+                {releaseVersion}
+              </span>
+            </div>
+
+            <div className="mt-8 grid gap-4 lg:grid-cols-3">
+              {noticeCards.map((notice) => (
+                <article
+                  key={notice.title}
+                  className={`rounded-lg border p-5 ${
+                    notice.tone === "red"
+                      ? "border-red-300/20 bg-red-500/10"
+                      : notice.tone === "amber"
+                        ? "border-amber-300/20 bg-amber-500/10"
+                        : "border-cyan-300/20 bg-cyan-500/10"
+                  }`}
+                >
+                  <notice.icon
+                    className={`h-6 w-6 ${
+                      notice.tone === "red"
+                        ? "text-red-200"
+                        : notice.tone === "amber"
+                          ? "text-amber-200"
+                          : "text-cyan-200"
+                    }`}
+                  />
+                  <h3 className="mt-4 text-lg font-semibold text-white">
+                    {notice.title}
+                  </h3>
+                  <p className="mt-3 leading-7 text-slate-200">
+                    {notice.body}
+                  </p>
+
+                  {notice.command ? (
+                    <div className="mt-4">
+                      <p className="text-sm font-semibold text-amber-100">
+                        必要な場合のコマンド
+                      </p>
+                      <code className="mt-2 block overflow-x-auto rounded-md border border-white/10 bg-slate-950/80 px-3 py-2 text-sm text-cyan-100">
+                        {notice.command}
+                      </code>
+                      <p className="mt-3 text-sm leading-6 text-amber-50/90">
+                        {notice.note}
+                      </p>
+                    </div>
+                  ) : null}
+
+                  {notice.steps ? (
+                    <ol className="mt-4 space-y-2 text-sm leading-6 text-slate-200">
+                      {notice.steps.map((step, index) => (
+                        <li key={step} className="flex gap-3">
+                          <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-white/15 text-xs text-slate-200">
+                            {index + 1}
+                          </span>
+                          <span>{step}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              {extraNotes.map((note) => (
+                <article
+                  key={note.title}
+                  className="surface rounded-lg p-5"
+                >
+                  <note.icon className="h-6 w-6 text-cyan-200" />
+                  <h3 className="mt-4 text-lg font-semibold">{note.title}</h3>
+                  <p className="mt-3 leading-7 text-slate-300">{note.body}</p>
+                </article>
               ))}
             </div>
           </div>
@@ -444,8 +581,10 @@ export default function Home() {
               <SectionLabel icon={ArrowDownToLine}>Download</SectionLabel>
               <h2 className="text-3xl font-semibold">ダウンロード</h2>
               <p className="mt-4 max-w-2xl leading-7 text-slate-300">
-                現在の限定ベータ版は
-                <span className="font-semibold text-white"> {releaseVersion}</span>
+                現在の限定ベータ版は{" "}
+                <span className="rounded-full border border-cyan-200/25 bg-cyan-200/10 px-2 py-0.5 font-semibold text-cyan-100">
+                  {releaseVersion}
+                </span>
                 です。macOS版とWindows版のインストーラーをGitHub Releasesから配布しています。
               </p>
             </div>
@@ -460,53 +599,53 @@ export default function Home() {
           </div>
 
           <div className="mt-8 grid items-stretch gap-4 md:grid-cols-2">
-            <a
-              href={macDownloadUrl}
-              download="Mitru_0.9.7-beta_aarch64.dmg"
-              rel="noreferrer"
-              className="flex min-h-[320px] flex-col rounded-lg border border-cyan-200/25 bg-cyan-300/10 p-6 transition hover:border-cyan-200/45 hover:bg-cyan-300/15"
-            >
-              <span className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex whitespace-nowrap rounded-full border border-cyan-200/25 bg-cyan-200/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-cyan-100">
-                  macOS .dmg
+            {downloadOptions.map((option) => (
+              <a
+                key={option.platform}
+                href={option.href}
+                download={option.fileName}
+                rel="noreferrer"
+                className={`flex min-h-[330px] flex-col rounded-lg p-6 transition ${
+                  option.highlight
+                    ? "border border-cyan-200/25 bg-cyan-300/10 hover:border-cyan-200/45 hover:bg-cyan-300/15"
+                    : "border border-white/10 bg-white/[0.04] hover:border-cyan-200/30 hover:bg-white/[0.07]"
+                }`}
+              >
+                <span className="flex flex-wrap items-center gap-2">
+                  <span
+                    className={`inline-flex whitespace-nowrap rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-widest ${
+                      option.highlight
+                        ? "border-cyan-200/25 bg-cyan-200/10 text-cyan-100"
+                        : "border-white/10 text-slate-300"
+                    }`}
+                  >
+                    {option.format}
+                  </span>
+                  <span className="inline-flex whitespace-nowrap rounded-full border border-emerald-300/25 bg-emerald-300/10 px-2.5 py-1 text-xs font-semibold text-emerald-100">
+                    {releaseVersion}
+                  </span>
                 </span>
-                <span className="inline-flex whitespace-nowrap rounded-full border border-white/10 px-2.5 py-1 text-xs font-semibold text-slate-200">
-                  {releaseVersion}
+                <option.icon className="mt-5 h-8 w-8 text-cyan-200" />
+                <h3 className="mt-4 text-2xl font-semibold">
+                  {option.platform}
+                </h3>
+                <p className="mt-4 flex-1 leading-7 text-slate-300">
+                  {option.description}
+                </p>
+                <p className="mt-4 text-sm text-slate-500">
+                  ファイル名: {option.fileName}
+                </p>
+                <span
+                  className={`mt-6 inline-flex w-fit rounded-md px-4 py-2 text-sm font-semibold ${
+                    option.highlight
+                      ? "bg-cyan-300 text-slate-950"
+                      : "border border-white/15 text-white"
+                  }`}
+                >
+                  {option.button}
                 </span>
-              </span>
-              <HardDriveDownload className="mt-5 h-8 w-8 text-cyan-200" />
-              <h3 className="mt-4 text-2xl font-semibold">macOS版</h3>
-              <p className="mt-4 flex-1 leading-7 text-slate-300">
-                最新のmacOS版インストーラーです。ダウンロード後、dmgファイルを開いてアプリをApplicationsへ移動してください。
-              </p>
-              <span className="mt-6 inline-flex w-fit rounded-md bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950">
-                macOS版をダウンロード (.dmg)
-              </span>
-            </a>
-
-            <a
-              href={windowsDownloadUrl}
-              download="Mitru_0.9.7-beta_x64-setup.exe"
-              rel="noreferrer"
-              className="flex min-h-[320px] flex-col rounded-lg border border-white/10 bg-white/[0.04] p-6 transition hover:border-cyan-200/30 hover:bg-white/[0.07]"
-            >
-              <span className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex whitespace-nowrap rounded-full border border-white/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-widest text-slate-300">
-                  Windows .exe
-                </span>
-                <span className="inline-flex whitespace-nowrap rounded-full border border-emerald-300/25 bg-emerald-300/10 px-2.5 py-1 text-xs font-semibold text-emerald-100">
-                  {releaseVersion}
-                </span>
-              </span>
-              <Laptop className="mt-5 h-8 w-8 text-cyan-200" />
-              <h3 className="mt-4 text-2xl font-semibold">Windows版</h3>
-              <p className="mt-4 flex-1 leading-7 text-slate-300">
-                最新のWindows版インストーラーです。Windows 10 / 11でセットアップ画面に沿って導入できます。
-              </p>
-              <span className="mt-6 inline-flex w-fit rounded-md border border-white/15 px-4 py-2 text-sm font-semibold text-white">
-                Windows版をダウンロード (.exe)
-              </span>
-            </a>
+              </a>
+            ))}
           </div>
         </section>
 
@@ -517,20 +656,34 @@ export default function Home() {
           <div className="section-shell py-16">
             <SectionLabel icon={FileText}>Setup</SectionLabel>
             <h2 className="text-3xl font-semibold">インストール手順</h2>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {setupSteps.map((step, index) => (
+            <p className="mt-4 max-w-3xl leading-7 text-slate-300">
+              OSごとの導入手順です。どちらもインストーラーを取得したあと、通常のデスクトップアプリと同じ流れでセットアップできます。
+            </p>
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {installGuides.map((guide) => (
                 <article
-                  key={step.title}
-                  className="surface rounded-lg p-5"
+                  key={guide.platform}
+                  className="surface rounded-lg p-6"
                 >
                   <div className="flex items-center justify-between">
-                    <step.icon className="h-6 w-6 text-cyan-200" />
-                    <span className="text-sm font-semibold text-slate-500">
-                      0{index + 1}
+                    <guide.icon className="h-7 w-7 text-cyan-200" />
+                    <span className="rounded-full border border-white/10 px-2.5 py-1 text-xs font-semibold text-slate-300">
+                      {releaseVersion}
                     </span>
                   </div>
-                  <h3 className="mt-5 text-lg font-semibold">{step.title}</h3>
-                  <p className="mt-3 leading-7 text-slate-300">{step.body}</p>
+                  <h3 className="mt-5 text-2xl font-semibold">
+                    {guide.platform}
+                  </h3>
+                  <ol className="mt-5 space-y-4">
+                    {guide.steps.map((step, index) => (
+                      <li key={step} className="flex gap-3 leading-7 text-slate-300">
+                        <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-cyan-200/25 bg-cyan-200/10 text-xs font-semibold text-cyan-100">
+                          {index + 1}
+                        </span>
+                        <span>{step}</span>
+                      </li>
+                    ))}
+                  </ol>
                 </article>
               ))}
             </div>

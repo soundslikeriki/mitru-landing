@@ -3,7 +3,7 @@ import "./globals.css";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  "https://mitru-app-rikiharada93-2282s-projects.vercel.app";
+  "https://mitru-app.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
